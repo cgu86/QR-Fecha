@@ -13,7 +13,7 @@ body{
 }
 
 #fecha{
-    font-size:32px;
+    font-size:40px;
     font-weight:bold;
     margin-bottom:20px;
 }
@@ -21,7 +21,6 @@ body{
 #qrcode{
     display:flex;
     justify-content:center;
-    margin-top:20px;
 }
 </style>
 
@@ -30,40 +29,37 @@ body{
 
 <body>
 
-<h1>Fecha y Hora Actual</h1>
+<h1>Fecha Actual</h1>
 
 <div id="fecha"></div>
 
 <div id="qrcode"></div>
 
 <script>
-let qr;
-
 function actualizarQR() {
 
-    const ahora = new Date();
+    const hoy = new Date();
 
-    const fechaHora =
-        ahora.getFullYear() + "-" +
-        String(ahora.getMonth()+1).padStart(2,"0") + "-" +
-        String(ahora.getDate()).padStart(2,"0") + " " +
-        String(ahora.getHours()).padStart(2,"0") + ":" +
-        String(ahora.getMinutes()).padStart(2,"0") + ":" +
-        String(ahora.getSeconds()).padStart(2,"0");
+    const fecha =
+        hoy.getFullYear() + "-" +
+        String(hoy.getMonth()+1).padStart(2,"0") + "-" +
+        String(hoy.getDate()).padStart(2,"0");
 
-    document.getElementById("fecha").innerText = fechaHora;
+    document.getElementById("fecha").innerText = fecha;
 
     document.getElementById("qrcode").innerHTML = "";
 
-    qr = new QRCode(document.getElementById("qrcode"), {
-        text: fechaHora,
+    new QRCode(document.getElementById("qrcode"), {
+        text: fecha,
         width: 300,
         height: 300
     });
 }
 
 actualizarQR();
-setInterval(actualizarQR, 1000);
+
+// Revisa cada minuto por si cambió el día
+setInterval(actualizarQR, 60000);
 </script>
 
 </body>
