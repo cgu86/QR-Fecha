@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Fecha y Hora Actual</title>
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    margin-top:100px;
+}
+#fecha{
+    font-size:40px;
+    font-weight:bold;
+}
+</style>
+</head>
+<body>
+
+<h1>Fecha y Hora Actual</h1>
+<div id="fecha"></div>
+
+<script>
+function actualizar() {
+    document.getElementById("fecha").innerHTML =
+        new Date().toLocaleString('es-CO');
+}
+
+actualizar();
+setInterval(actualizar, 1000);
+</script>
+
+</body>
