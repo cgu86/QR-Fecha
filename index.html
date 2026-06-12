@@ -2,21 +2,39 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Fecha y Hora Actual</title>
+
 <style>
 body{
     font-family: Arial, sans-serif;
     text-align:center;
-    margin-top:100px;
+    margin-top:50px;
 }
+
 #fecha{
     font-size:40px;
     font-weight:bold;
+    margin-bottom:30px;
+}
+
+#qrcode{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
 }
 </style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </head>
 <body>
 
+<h1>Fecha y Hora Actual</h1>
+
 <div id="fecha"></div>
+
+<h3>Escanea para volver a esta página</h3>
+<div id="qrcode"></div>
 
 <script>
 function actualizar() {
@@ -26,6 +44,14 @@ function actualizar() {
 
 actualizar();
 setInterval(actualizar, 1000);
+
+// Generar QR con la URL actual
+new QRCode(document.getElementById("qrcode"), {
+    text: window.location.href,
+    width: 250,
+    height: 250
+});
 </script>
 
 </body>
+</html>
