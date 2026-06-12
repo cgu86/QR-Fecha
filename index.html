@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Fecha y Hora Actual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QR con Fecha Actual</title>
 
 <style>
 body{
     font-family: Arial, sans-serif;
     text-align:center;
-    margin-top:50px;
+    padding:40px;
 }
 
 #fecha{
-    font-size:40px;
+    font-size:32px;
     font-weight:bold;
-    margin-bottom:30px;
+    margin-bottom:20px;
 }
 
 #qrcode{
@@ -25,32 +26,44 @@ body{
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
 </head>
+
 <body>
 
 <h1>Fecha y Hora Actual</h1>
 
 <div id="fecha"></div>
 
-<h3>Escanea para volver a esta página</h3>
 <div id="qrcode"></div>
 
 <script>
-function actualizar() {
-    document.getElementById("fecha").innerHTML =
-        new Date().toLocaleString('es-CO');
+let qr;
+
+function actualizarQR() {
+
+    const ahora = new Date();
+
+    const fechaHora =
+        ahora.getFullYear() + "-" +
+        String(ahora.getMonth()+1).padStart(2,"0") + "-" +
+        String(ahora.getDate()).padStart(2,"0") + " " +
+        String(ahora.getHours()).padStart(2,"0") + ":" +
+        String(ahora.getMinutes()).padStart(2,"0") + ":" +
+        String(ahora.getSeconds()).padStart(2,"0");
+
+    document.getElementById("fecha").innerText = fechaHora;
+
+    document.getElementById("qrcode").innerHTML = "";
+
+    qr = new QRCode(document.getElementById("qrcode"), {
+        text: fechaHora,
+        width: 300,
+        height: 300
+    });
 }
 
-actualizar();
-setInterval(actualizar, 1000);
-
-// Generar QR con la URL actual
-new QRCode(document.getElementById("qrcode"), {
-    text: window.location.href,
-    width: 250,
-    height: 250
-});
+actualizarQR();
+setInterval(actualizarQR, 1000);
 </script>
 
 </body>
